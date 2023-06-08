@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install: 
+  - docker build -t nicktazelaar84/react-test -f ./client/Dockerfile.dev ./client
+
+script: 
+  - docker run -e CI=true nicktazelaar84/react-test npm test
+
+after_success: 
+  - docker build -t nicktazelaar84/complex-client-prod ./client
+  - docker build -t nicktazelaar84/complex-nginx-prod ./nginx
+  - docker build -t nicktazelaar84/complex-server-prod ./server
+  - docker build -t nicktazelaar84/complex-worker-prod ./worker
