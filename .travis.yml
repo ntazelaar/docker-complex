@@ -14,3 +14,8 @@ after_success:
   - docker build -t nicktazelaar84/complex-nginx-prod ./nginx
   - docker build -t nicktazelaar84/complex-server-prod ./server
   - docker build -t nicktazelaar84/complex-worker-prod ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push nicktazelaar84/complex-client-prod
+  - docker push nicktazelaar84/complex-nginx-prod
+  - docker push nicktazelaar84/complex-server-prod
+  - docker push nicktazelaar84/complex-worker-prod
